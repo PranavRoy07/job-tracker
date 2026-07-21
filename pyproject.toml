@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "job-tracker"
+version = "0.1.0"
+description = "Automated Job Intelligence Engine for Pune tech jobs"
+requires-python = ">=3.10"
+dependencies = [
+    "requests>=2.31",
+    "beautifulsoup4>=4.12",
+    "apscheduler>=3.10",
+    "rich>=13.0",
+    "plyer>=2.1",
+]
+
+[project.scripts]
+job-tracker = "job_tracker.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

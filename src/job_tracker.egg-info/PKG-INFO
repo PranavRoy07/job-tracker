@@ -1,0 +1,10 @@
+Metadata-Version: 2.4
+Name: job-tracker
+Version: 0.1.0
+Summary: Automated Job Intelligence Engine for Pune tech jobs
+Requires-Python: >=3.10
+Requires-Dist: requests>=2.31
+Requires-Dist: beautifulsoup4>=4.12
+Requires-Dist: apscheduler>=3.10
+Requires-Dist: rich>=13.0
+Requires-Dist: plyer>=2.1

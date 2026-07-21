@@ -1,0 +1,5 @@
+requests>=2.31
+beautifulsoup4>=4.12
+apscheduler>=3.10
+rich>=13.0
+plyer>=2.1
