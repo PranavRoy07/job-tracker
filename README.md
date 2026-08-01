@@ -1,41 +1,28 @@
-# ⚡ Job Intelligence Engine
+# Job Intelligence Engine
 
-An automated Python-based job tracking system that **collects real job listings**, evaluates them against your skills, and presents the results in a **modern, interactive terminal dashboard**.
+An automated Python job tracking system that scrapes live job listings, scores them against your skillset, and presents results in an interactive terminal dashboard — with desktop notifications for high-fit opportunities and automated daily scheduling.
 
-> **Built as a production-ready Python package, not just a script.**
-
----
-
-## ✨ Features
-
-- 🌐 **Real Job Scraping**
-  - Fetches live job listings from:
-    - RemoteOK API
-    - Adzuna API (Pune technology jobs)
-
-- 📊 **Smart Job Scoring**
-  - Calculates a **0–100 compatibility score** based on your skill set.
-
-- 💾 **Persistent Data Storage**
-  - Uses **SQLite** with the **Repository Pattern** for clean data management.
-
-- 🎨 **Interactive Terminal Dashboard**
-  - Built using **Rich** for a clean and visually appealing command-line interface.
-
-- 🔔 **Desktop Notifications**
-  - Sends instant alerts for high-scoring opportunities (Score ≥ 70).
-
-- ⏰ **Automated Scheduling**
-  - Runs automatically every day at **9:00 AM** using APScheduler.
-
-- 📝 **Comprehensive Logging**
-  - Records all application activity in `scraper.log`.
+> Built as a production-ready Python package, not just a script.
 
 ---
 
-# 🖥️ Dashboard Preview
+## Features
 
-```text
+| Feature | Details |
+|---|---|
+| **Live job scraping** | Fetches from RemoteOK API and Adzuna API (Pune technology listings) |
+| **Skill-match scoring** | 0–100 compatibility score calculated per listing against your skill profile |
+| **Desktop notifications** | Instant alerts for jobs scoring ≥ 70 via `plyer` |
+| **Automated scheduling** | Runs daily at 9:00 AM via `APScheduler` — no manual trigger needed |
+| **Rich terminal dashboard** | Top 10 jobs by fit score + application pipeline status, rendered with `Rich` |
+| **SQLite + Repository Pattern** | Clean data separation — storage logic never bleeds into business logic |
+| **Full test suite** | `pytest` with TDD approach; activity logged to `scraper.log` |
+
+---
+
+## Dashboard preview
+
+```
 ╔══════════════════════════════════════════════════════════════╗
 ║                    ⚡ JOB INTELLIGENCE ENGINE                ║
 ╚══════════════════════════════════════════════════════════════╝
@@ -46,7 +33,6 @@ An automated Python-based job tracking system that **collects real job listings*
 │ 1    90     Data Engineer         Persistent             │
 │ 2    85     Python Developer      Infosys                │
 │ 3    75     Data Analyst          TCS                    │
-│                                                          │
 │              ████████████████░░░░   85%                  │
 ╰──────────────────────────────────────────────────────────╯
 
@@ -59,164 +45,111 @@ An automated Python-based job tracking system that **collects real job listings*
 
 ---
 
-# 🛠️ Tech Stack
+## How it works
 
-| Technology | Purpose |
-|------------|---------|
-| **Python 3.12+** | Core programming language |
-| **Rich** | Interactive terminal dashboard |
-| **SQLite** | Local database storage |
-| **APScheduler** | Automated daily scheduling |
-| **Requests** | Fetching job listings via APIs |
-| **Plyer** | Desktop notifications |
-| **Pytest** | Unit testing and Test-Driven Development (TDD) |
-
----
-
-# 📂 Project Structure
-
-```text
-job-tracker/
-│
-├── src/
-│   ├── scraper/
-│   ├── database/
-│   ├── dashboard/
-│   ├── notifications/
-│   ├── scheduler/
-│   └── scoring/
-│
-├── tests/
-├── scraper.log
-├── requirements.txt
-├── README.md
-└── main.py
+```
+Job APIs (RemoteOK, Adzuna)
+        │
+        ▼
+    Job Scraper
+        │
+        ▼
+  SQLite Database (Repository Pattern)
+        │
+        ▼
+  Skill Scoring Engine (0–100)
+        │
+        ▼
+    Rich Dashboard
+        │
+        ├── Desktop Notifications (score ≥ 70)
+        └── Daily Scheduler (9:00 AM via APScheduler)
 ```
 
 ---
 
-# 🚀 Getting Started
+## Project structure
 
-## 1️⃣ Clone the Repository
+```
+job-tracker/
+├── src/
+│   ├── scraper/        — RemoteOK + Adzuna API clients
+│   ├── database/       — SQLite setup + Repository Pattern
+│   ├── dashboard/      — Rich terminal UI
+│   ├── notifications/  — plyer desktop alerts
+│   ├── scheduler/      — APScheduler daily job
+│   └── scoring/        — skill-match compatibility engine
+├── tests/              — pytest test suite
+├── scraper.log         — full activity log
+├── jobs.db             — SQLite database
+├── pyproject.toml
+└── README.md
+```
 
+---
+
+## Getting started
+
+### 1. Clone the repository
 ```bash
 git clone https://github.com/PranavRoy07/job-tracker.git
 cd job-tracker
 ```
 
-## 2️⃣ Create a Virtual Environment
-
-### Windows
-
+### 2. Create a virtual environment
 ```bash
+# macOS / Linux
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Windows
 python -m venv .venv
 .venv\Scripts\activate
 ```
 
-### macOS/Linux
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-## 3️⃣ Install Dependencies
-
+### 3. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-## 4️⃣ Run the Application
-
+### 4. Run the application
 ```bash
 python main.py
 ```
 
 ---
 
-# 📊 How It Works
-
-```text
-Job APIs
-   │
-   ▼
-Job Scraper
-   │
-   ▼
-SQLite Database
-   │
-   ▼
-Skill Scoring Engine
-   │
-   ▼
-Rich Dashboard
-   │
-   ├── Desktop Notifications
-   └── Daily Scheduler
-```
-
----
-
-# 🧪 Testing
-
-Run the test suite using:
-
+## Running tests
 ```bash
 pytest
 ```
 
 ---
 
-# 📄 Logging
+## Tech stack
 
-Application logs are stored in:
+| Technology | Purpose |
+|---|---|
+| Python 3.12+ | Core language |
+| Rich | Interactive terminal dashboard |
+| SQLite | Local persistent storage |
+| APScheduler | Daily automated scheduling |
+| Requests | HTTP client for job APIs |
+| Plyer | Cross-platform desktop notifications |
+| Pytest | Unit testing + TDD |
 
-```text
-scraper.log
-```
+---
 
-These logs include:
+## Logging
 
-- Job scraping activity
-- API responses
-- Scheduler execution
-- Notification events
+All activity is recorded in `scraper.log`:
+- Job scraping events and API responses
+- Scheduler execution timestamps
+- Notification dispatches
 - Errors and exceptions
 
 ---
 
-# 🎯 Future Improvements
+## License
 
-- AI-powered resume matching
-- Email job alerts
-- Multi-location job search
-- Company insights and ratings
-- ATS resume compatibility scoring
-- Web dashboard (Flask/FastAPI)
-- PostgreSQL support
-- Docker deployment
-
----
-
-# 🤝 Contributing
-
-Contributions are welcome!
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Open a Pull Request
-
----
-
-# 📜 License
-
-This project is licensed under the **MIT License**.
-
----
-
-# 👨‍💻 Author
-
-**Pranav Roy**
-
-If you found this project useful, consider giving it a ⭐ on GitHub.
+MIT
